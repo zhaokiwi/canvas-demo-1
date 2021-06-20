@@ -6,10 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>画板</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    hi
+    <canvas id="canvas"></canvas>
+    <script>
+        let canvas = document.getElementById("canvas")
+        canvas.width = document.documentElement.clientWidth
+        canvas.height = document.documentElement.clientHeight
+        let ctx = canvas.getContext("2d")
+        ctx.fillStyle = "blue"
+        ctx.strokeStyle = 'none'
+
+        let painting = false
+
+        canvas.onmousedown = () => {
+            painting = true
+        }
+
+        canvas.onmousemove = (e) => {
+            if (painting === true) {
+                ctx.beginPath()
+                ctx.arc(e.clientX, e.clientY, 6, 0, 2 * Math.PI)
+                ctx.stroke()
+                ctx.fill()
+                    // ctx.fillRect(e.clientX - 3, e.clientY - 3, 6, 6)
+            } else {
+                console.log('什么都不做')
+            }
+        }
+        canvas.onmouseup = () => {
+            painting = false
+        }
+    </script>
 </body>
 
 </html>
